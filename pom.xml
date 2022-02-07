@@ -18,6 +18,8 @@
 	<modules>
 		<module>websocket-sb-plain-server</module>
 		<module>websocket-sb-plain-client</module>
+		<module>websocket-sb-stomp-server</module>
+                <module>websocket-sb-stomp-client</module>
 	</modules>
 
 	<dependencyManagement>

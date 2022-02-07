@@ -1,4 +1,4 @@
-package com.bbende.messaging.ws.plain.server;
+package com.bbende.messaging.ws.stomp.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class WebSocketPlainServerHandler extends TextWebSocketHandler {
+public class WebSocketStompServerHandler extends TextWebSocketHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketPlainServerHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketStompServerHandler.class);
 
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
@@ -39,17 +39,4 @@ public class WebSocketPlainServerHandler extends TextWebSocketHandler {
         sessions.remove(session.getId());
         LOGGER.info("Connection closed for session [{}]", session.getId());
     }
-
-    public void broadcastMessage(String message) {
-        sessions.values().forEach(session -> {
-            try {
-                LOGGER.info("Broadcasting message to session [{}] with body [{}]", session.getId(), message);
-                final WebSocketMessage<String> responseMessage = new TextMessage(message);
-                session.sendMessage(responseMessage);
-            } catch (Exception e) {
-                LOGGER.error("Unable to broadcast message to session " + session.getId(), e);
-            }
-        });
-    }
-
 }
