@@ -17,7 +17,7 @@ public class WebSocketPlainServerHandler extends TextWebSocketHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketPlainServerHandler.class);
 
-    private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<String, WebSocketSession>();
+    private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -39,4 +39,17 @@ public class WebSocketPlainServerHandler extends TextWebSocketHandler {
         sessions.remove(session.getId());
         LOGGER.info("Connection closed for session [{}]", session.getId());
     }
+
+    public void broadcastMessage(String message) {
+        sessions.values().forEach(session -> {
+            try {
+                LOGGER.info("Broadcasting message to session [{}] with body [{}]", session.getId(), message);
+                final WebSocketMessage<String> responseMessage = new TextMessage(message);
+                session.sendMessage(responseMessage);
+            } catch (Exception e) {
+                LOGGER.error("Unable to broadcast message to session " + session.getId(), e);
+            }
+        });
+    }
+
 }

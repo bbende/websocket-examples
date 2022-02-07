@@ -15,6 +15,7 @@ public class WebSocketPlainServerConfig implements WebSocketConfigurer {
         this.webSocketPlainServerHandler = webSocketPlainServerHandler;
     }
 
+    @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketPlainServerHandler, "/ws/events");
     }
