@@ -25,14 +25,17 @@ public class WebSocketPlainClientHandler extends TextWebSocketHandler implements
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketPlainClientHandler.class);
 
-    private URI webSocketUrl;
-    private WebSocketClient webSocketClient;
-    private ScheduledExecutorService executorService;
+    private final URI webSocketUrl;
+    private final String clientId;
+    private final WebSocketClient webSocketClient;
+    private final ScheduledExecutorService executorService;
     private AtomicInteger messageCounter = new AtomicInteger(0);
 
-    public WebSocketPlainClientHandler(@Value("${ws.client.url}") final String webSocketUrl, final WebSocketClient webSocketClient) {
-        this.webSocketUrl = URI.create(webSocketUrl);
+    public WebSocketPlainClientHandler(final WebSocketPlainClientProperties clientProperties,
+                                       final WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
+        this.clientId = clientProperties.getId();
+        this.webSocketUrl = URI.create(clientProperties.getUrl());
         this.executorService = new ScheduledThreadPoolExecutor(1);
     }
 
@@ -71,7 +74,8 @@ public class WebSocketPlainClientHandler extends TextWebSocketHandler implements
     private void scheduleMessageSendingTask(final WebSocketSession session) {
         executorService.scheduleAtFixedRate(() -> {
             try {
-                final WebSocketMessage<String> message = new TextMessage("Message # " + messageCounter.getAndIncrement());
+                final String messageValue = "Message # " + messageCounter.getAndIncrement() + " from client " + clientId;
+                final WebSocketMessage<String> message = new TextMessage(messageValue);
                 LOGGER.info("Sending message [{}]", message.getPayload());
                 session.sendMessage(message);
             } catch (Exception e) {

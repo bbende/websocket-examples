@@ -12,7 +12,7 @@
 	<artifactId>websocket-sb-plain-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>WebSocket - Spring Boot - Plain Client</name>
+	<name>Spring Boot - Plain Client</name>
 	<description>Spring Boot application with a WebSocket client that uses plain text.</description>
 
 	<dependencies>
@@ -25,5 +25,14 @@
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

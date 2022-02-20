@@ -30,7 +30,7 @@ public class WebSocketPlainServerHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         LOGGER.info("Received message from client session [{}] with body [{}]", session.getId(), message.getPayload());
         final WebSocketMessage<String> responseMessage = new TextMessage("Server acknowledges \"" + message.getPayload() + "\"");
-        session.sendMessage(responseMessage);
+        broadcastMessage(responseMessage);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class WebSocketPlainServerHandler extends TextWebSocketHandler {
         LOGGER.info("Connection closed for session [{}]", session.getId());
     }
 
-    public void broadcastMessage(String message) {
+    public void broadcastMessage(final WebSocketMessage<String> message) {
         sessions.values().forEach(session -> {
             try {
-                LOGGER.info("Broadcasting message to session [{}] with body [{}]", session.getId(), message);
-                final WebSocketMessage<String> responseMessage = new TextMessage(message);
-                session.sendMessage(responseMessage);
+                LOGGER.info("Broadcasting message to session [{}] with body [{}]",
+                        session.getId(), message.getPayload());
+                session.sendMessage(message);
             } catch (Exception e) {
                 LOGGER.error("Unable to broadcast message to session " + session.getId(), e);
             }

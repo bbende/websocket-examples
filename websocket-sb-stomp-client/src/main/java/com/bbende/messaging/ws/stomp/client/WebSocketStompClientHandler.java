@@ -26,23 +26,20 @@ public class WebSocketStompClientHandler implements StompSessionHandler, Applica
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketStompClientHandler.class);
 
     private final URI webSocketUrl;
+    private final String clientId;
     private final String appDestination;
     private final String topicDestination;
     private final WebSocketStompClient stompClient;
     private final ScheduledExecutorService executorService;
     private final AtomicInteger messageCounter = new AtomicInteger(0);
 
-    public WebSocketStompClientHandler(@Value("${ws.client.url}")
-                                       final String webSocketUrl,
-                                       @Value("${ws.client.app.destination}")
-                                       final String appDestination,
-                                       @Value("${ws.client.topic.destination}")
-                                       final String topicDestination,
+    public WebSocketStompClientHandler(final WebSocketStompClientProperties clientProperties,
                                        final WebSocketStompClient stompClient) {
-        this.webSocketUrl = URI.create(webSocketUrl);
         this.stompClient = stompClient;
-        this.appDestination = appDestination;
-        this.topicDestination = topicDestination;
+        this.clientId = clientProperties.getId();
+        this.appDestination = clientProperties.getAppDestination();
+        this.topicDestination = clientProperties.getTopicDestination();
+        this.webSocketUrl = URI.create(clientProperties.getUrl());
         this.executorService = new ScheduledThreadPoolExecutor(1);
     }
 
@@ -94,7 +91,7 @@ public class WebSocketStompClientHandler implements StompSessionHandler, Applica
     private void scheduleMessageSendingTask(final StompSession session) {
         executorService.scheduleAtFixedRate(() -> {
             try {
-                final String message = "Message # " + messageCounter.getAndIncrement();
+                final String message = "Message # " + messageCounter.getAndIncrement() + " from client " + clientId;
                 LOGGER.info("Sending message [{}] to [{}]", message, appDestination);
                 session.send(appDestination, message);
             } catch (Exception e) {
