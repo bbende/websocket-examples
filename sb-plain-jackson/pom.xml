@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bbende.messaging</groupId>
+		<artifactId>websocket-examples</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.bbende.messaging</groupId>
+	<artifactId>sb-plain-jackson</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Spring Boot - Plain Jackson Example</name>
+	<description>Spring Boot with a WebSocket client and server that uses plain text with Jackson.</description>
+
+	<modules>
+		<module>sb-plain-jackson-client</module>
+		<module>sb-plain-jackson-server</module>
+		<module>sb-plain-jackson-api</module>
+	</modules>
+
+</project>
