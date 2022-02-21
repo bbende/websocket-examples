@@ -4,16 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.bbende.messaging</groupId>
-		<artifactId>websocket-examples</artifactId>
+		<artifactId>sb-plain</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.bbende.messaging</groupId>
-	<artifactId>sb-plain-client</artifactId>
+	<artifactId>sb-plain-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>Spring Boot - Plain Client</name>
-	<description>Spring Boot application with a WebSocket client that uses plain text.</description>
+	<name>Spring Boot - Plain Server</name>
+	<description>Spring Boot application with a WebSocket server that uses plain text.</description>
 
 	<dependencies>
 		<dependency>

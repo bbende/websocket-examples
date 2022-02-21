@@ -17,10 +17,9 @@
 	</properties>
 
 	<modules>
-		<module>sb-plain-server</module>
-		<module>sb-plain-client</module>
-		<module>sb-stomp-server</module>
-		<module>sb-stomp-client</module>
+		<module>sb-plain</module>
+		<module>sb-stomp</module>
+		<module>sb-plain-jackson</module>
 	</modules>
 
 	<dependencyManagement>

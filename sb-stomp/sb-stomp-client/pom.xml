@@ -4,16 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.bbende.messaging</groupId>
-		<artifactId>websocket-examples</artifactId>
+		<artifactId>sb-stomp</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.bbende.messaging</groupId>
-	<artifactId>sb-stomp-server</artifactId>
+	<artifactId>sb-stomp-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>Spring Boot - STOMP Server</name>
-	<description>Spring Boot application with a WebSocket server that uses STOMP.</description>
+	<name>Spring Boot - STOMP Client</name>
+	<description>Spring Boot application with a WebSocket client that uses STOMP.</description>
 
 	<dependencies>
 		<dependency>
