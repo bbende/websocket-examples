@@ -19,6 +19,7 @@
 	<modules>
 		<module>sb-plain</module>
 		<module>sb-stomp</module>
+		<module>sb-stomp-redis</module>
 		<module>sb-plain-jackson</module>
 	</modules>
 
